@@ -1,0 +1,31 @@
+PyWeek 37 “Tube”
+
+T  U  B  E
+Game Design Document
+
+Introduction
+
+The game “TUBE” will feature an interactive 3D puzzle based on tubes of varying diameters sliding into holes of another object.
+
+The initial gameplay may be defined as a physics simulation which requires the player to drop cylinders from a given height and at a given speed, and then rotate a receiver, located below the dropping cylinders, full of a pattern of holes offset from the initial configuration of the dropped cylinders. The player rotates the receiver such that the cylinders may fall through the holes (or “tubes”) in the receiver. The diameter of the holes relative to the cylinder diameters may be modulated based on the current level difficulty, IE smaller holes represent a higher difficulty. If the receiver rotation is too far offset from the dropping cylinders, the cylinders will bounce off the receiver, colliding with each other in a physics simulation and subsequently end that turn.
+
+The level difficulty progression may be defined by a few separate difficulty paths. The number of cylinders dropping, the diameter of those cylinders, as well as the relative hole diameters in the receiver will inform the geometric challenge. The speed of the cylinder drop, as well as the allowed speed of the receiver rotation, will inform the reflex challenge.
+
+
+Rendering
+
+The game will make use of complexpbr and metallic materials for rendering.
+
+
+Physics
+
+The game will make use of Bullet physics for the cylinder drops and collisions.
+
+
+Modeling
+
+Blender will be used for the cylinder and receiver modeling. The make_collision_from_model() function used in other complexpbr programs will be used for automatic generation of the collision meshes from the Blender models. Bullet cylinder shapes can be used for the cylinders themselves.
+
+Music
+
+The music will be original electronic dub music fitting the aesthetic of the game.
