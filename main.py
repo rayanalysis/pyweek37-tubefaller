@@ -675,7 +675,7 @@ class app(ShowBase):
                     self.world.attach_rigid_body(d_coll.node())
 
                 for cyl_pos in small_cylinders:
-                    special_shape_x = 0.15  # 0.25
+                    special_shape_x = 0.24  # 0.25
                     special_shape_y = 10
                     special_mass = 125
 
@@ -802,7 +802,7 @@ class app(ShowBase):
 
             test_receiver_8 = self.loader.load_model('models/test_receiver_2.glb')
             test_receiver_8.reparent_to(self.render)
-            test_receiver_8.set_pos(0, 0, -1300)
+            test_receiver_8.set_pos(0, 0, -1600)
             test_receiver_8.set_h(128)
             self.test_receiver_8 = test_receiver_8
 
