@@ -16,7 +16,7 @@ def lighting():
     # base.render.set_light(map_light_1)
 
     sun_1 = Spotlight('sun_1')
-    sun_1.set_shadow_caster(True, 1024, 1024)
+    sun_1.set_shadow_caster(True, 4096, 4096)
     sun_1.set_color(Vec4(Vec3(0.7),1))
     lens = PerspectiveLens()
     lens.set_near_far(0.5, 5000)
