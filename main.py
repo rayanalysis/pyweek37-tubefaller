@@ -227,7 +227,7 @@ class app(ShowBase):
             return Task.cont
 
         def set_sun_2_task(Task):
-            base.sun_1.set_z(self.cam.get_z() + 50)
+            base.sun_2.set_z(self.cam.get_z() + 50)
             
             return Task.cont
 
