@@ -50,7 +50,7 @@ class app(ShowBase):
             base.screen_quad.set_shader_input("bloom_intensity", 0.7)
             base.screen_quad.set_shader_input("bloom_threshold", 0.7)
             base.screen_quad.set_shader_input("bloom_blur_width", 30)
-            base.screen_quad.set_shader_input("bloom_samples", 2)
+            base.screen_quad.set_shader_input("bloom_samples", 6)
             base.screen_quad.set_shader_input('ssr_samples', 0)
             base.screen_quad.set_shader_input('ssr_intensity', 0)
             base.screen_quad.set_shader_input('ssao_samples', 6)
@@ -320,7 +320,7 @@ class app(ShowBase):
                     self.world.attach_rigid_body(d_coll.node())
 
                 for cyl_pos in small_cylinders:
-                    special_shape_x = 0.24  # 0.25
+                    special_shape_x = 0.15  # 0.25
                     special_shape_y = 10
                     special_mass = 125
 
@@ -438,7 +438,7 @@ class app(ShowBase):
             test_receiver_8 = self.loader.load_model('models/test_receiver_2.glb')
             test_receiver_8.reparent_to(self.render)
             test_receiver_8.set_pos(0, 0, -1300)
-            test_receiver_8.set_h(128)
+            test_receiver_8.set_h(62)
             self.test_receiver_8 = test_receiver_8
 
             make_collision_from_model(test_receiver_8, 0, 0, self.world, Vec3(0,0,0), 'test_receiver_8')  # target_pos is zeroed due to flattening
@@ -728,7 +728,7 @@ class app(ShowBase):
                         increment_receiver_coll = LerpHprInterval(self.test_receiver_8_coll,0.01,(receiver_coll_h+1,0,0)).start()
 
                     text_1.set_text('Receiver Rotation Value: ' + str(abs(round(self.test_receiver_8_coll.get_h(), 1)))
-                                                                      + '\n' + 'Target: ???')
+                                                                      + '\n' + 'Target: 62')
 
                     end_game_result = detect_end_game(self.test_receiver_8_coll.node())
                     if end_game_result > 0:
