@@ -823,6 +823,9 @@ class app(ShowBase):
                     if self.y_offset >= -max_dist:
                         self.y_offset -= 0.1
 
+                if cam_z > 1690:
+                    cleanup_level()
+
                 return Task.cont
                 
             self.task_mgr.add(rotate_receiver)
