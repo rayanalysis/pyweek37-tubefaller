@@ -528,7 +528,7 @@ class app(ShowBase):
 
                 self.reference_cyl = self.render.find_all_matches('**/random_prisms*')[9 * self.cleanup_count]
             
-                self.cam.set_pos(0,0,190)
+                self.cam.set_pos(0,0,150)
                 
             self.accept('p', cleanup_level)
 
