@@ -823,7 +823,8 @@ class app(ShowBase):
                     if self.y_offset >= -max_dist:
                         self.y_offset -= 0.1
 
-                if cam_z > 1690:
+                if cam_z > 1690 or cam_z < reference_z:
+                    text_1.set_text('Recovering level...')
                     cleanup_level()
 
                 return Task.cont
