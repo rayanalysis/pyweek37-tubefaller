@@ -21,7 +21,7 @@ import arena_lighting
 class app(ShowBase):
     def __init__(self):
         load_prc_file_data("", """
-            win-size 1920 1080
+            win-size 1280 720
             window-title T U B E F A L L E R
             framebuffer-multisample 1
             multisamples 4
@@ -29,6 +29,7 @@ class app(ShowBase):
             cursor-hidden #t
             gl-depth-zero-to-one #f
             show-frame-rate-meter #f
+            gl-version 3 2
         """)
 
         # initialize the showbase
