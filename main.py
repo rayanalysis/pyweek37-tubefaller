@@ -127,8 +127,9 @@ class app(ShowBase):
         from panda3d.bullet import BulletPlaneShape
 
         self.world = BulletWorld()
-        # self.world.set_gravity(Vec3(0, 0, -9.81))
-        self.world.set_gravity(Vec3(0, 0, -1.5))
+        self.world_initial_gravity = -1.5
+        self.world.set_gravity(Vec3(0, 0, self.world_initial_gravity))
+        self.reset_level = False
         
         def make_collision_from_model(input_model, node_number, mass, world, target_pos, rigid_name='input_model_tri_mesh'):
             # tristrip generation from static models
@@ -543,6 +544,9 @@ class app(ShowBase):
             
                 self.cam.set_pos(0,0,150)
                 
+                # self.cleanup_count += 1
+                self.reset_level = False
+                
             self.accept('p', cleanup_level)
 
             self.x_offset = 5
@@ -573,206 +577,207 @@ class app(ShowBase):
 
                 reference_z = self.render.find_all_matches('**/random_prisms*')[0].get_z()
                 
-                if reference_z > 0:
-                    if self.keyMap["receiver_right"]:
-                        receiver_h = self.test_receiver_1.get_h()
-                        receiver_coll_h = self.test_receiver_1_coll.get_h()
-                        increment_receiver = LerpHprInterval(self.test_receiver_1,0.01,(receiver_h-1,0,0)).start()
-                        increment_receiver_coll = LerpHprInterval(self.test_receiver_1_coll,0.01,(receiver_coll_h-1,0,0)).start()
+                if not self.reset_level:     
+                    if reference_z > 0:
+                        if self.keyMap["receiver_right"]:
+                            receiver_h = self.test_receiver_1.get_h()
+                            receiver_coll_h = self.test_receiver_1_coll.get_h()
+                            increment_receiver = LerpHprInterval(self.test_receiver_1,0.01,(receiver_h-1,0,0)).start()
+                            increment_receiver_coll = LerpHprInterval(self.test_receiver_1_coll,0.01,(receiver_coll_h-1,0,0)).start()
 
-                    if self.keyMap["receiver_left"]:
-                        receiver_h = self.test_receiver_1.get_h()
-                        receiver_coll_h = self.test_receiver_1_coll.get_h()
-                        increment_receiver = LerpHprInterval(self.test_receiver_1,0.01,(receiver_h+1,0,0)).start()
-                        increment_receiver_coll = LerpHprInterval(self.test_receiver_1_coll,0.01,(receiver_coll_h+1,0,0)).start()
+                        if self.keyMap["receiver_left"]:
+                            receiver_h = self.test_receiver_1.get_h()
+                            receiver_coll_h = self.test_receiver_1_coll.get_h()
+                            increment_receiver = LerpHprInterval(self.test_receiver_1,0.01,(receiver_h+1,0,0)).start()
+                            increment_receiver_coll = LerpHprInterval(self.test_receiver_1_coll,0.01,(receiver_coll_h+1,0,0)).start()
 
-                    text_1.set_text('Receiver Rotation Value: ' + str(abs(round(self.test_receiver_1.get_h(), 1)))
-                                                                      + '\n' + 'Target: ' + str(self.level_init_h_vals[0]) + self.control_text)
+                        text_1.set_text('Receiver Rotation Value: ' + str(abs(round(self.test_receiver_1.get_h(), 1)))
+                                                                          + '\n' + 'Target: ' + str(self.level_init_h_vals[0]) + self.control_text)
 
-                    end_game_result = detect_end_game(self.test_receiver_1_coll.node())
-                    if end_game_result > 0:
-                        # cleanup_level()
-                        pass
+                        end_game_result = detect_end_game(self.test_receiver_1_coll.node())
+                        if end_game_result > 0:
+                            # cleanup_level()
+                            pass
+                            
+                    if reference_z < -10 > -100:
+                        self.test_receiver_1.hide()
+                        if self.keyMap["receiver_right"]:
+                            receiver_h = self.test_receiver_2.get_h()
+                            receiver_coll_h = self.test_receiver_2_coll.get_h()
+                            increment_receiver = LerpHprInterval(self.test_receiver_2,0.01,(receiver_h-1,0,0)).start()
+                            increment_receiver_coll = LerpHprInterval(self.test_receiver_2_coll,0.01,(receiver_coll_h-1,0,0)).start()
+
+                        if self.keyMap["receiver_left"]:
+                            receiver_h = self.test_receiver_2.get_h()
+                            receiver_coll_h = self.test_receiver_2_coll.get_h()
+                            increment_receiver = LerpHprInterval(self.test_receiver_2,0.01,(receiver_h+1,0,0)).start()
+                            increment_receiver_coll = LerpHprInterval(self.test_receiver_2_coll,0.01,(receiver_coll_h+1,0,0)).start()
+
+                        text_1.set_text('Receiver Rotation Value: ' + str(abs(round(self.test_receiver_2.get_h(), 1)))
+                                                                          + '\n' + 'Target: ' + str(self.level_init_h_vals[1]) + self.control_text)
+
+                        end_game_result = detect_end_game(self.test_receiver_2_coll.node())
+                        if end_game_result > 0:
+                            # print(end_game_result)
+                            pass
                         
-                if reference_z < -10 > -100:
-                    self.test_receiver_1.hide()
-                    if self.keyMap["receiver_right"]:
-                        receiver_h = self.test_receiver_2.get_h()
-                        receiver_coll_h = self.test_receiver_2_coll.get_h()
-                        increment_receiver = LerpHprInterval(self.test_receiver_2,0.01,(receiver_h-1,0,0)).start()
-                        increment_receiver_coll = LerpHprInterval(self.test_receiver_2_coll,0.01,(receiver_coll_h-1,0,0)).start()
+                    if reference_z < -110 > -310:
+                        self.test_receiver_2.hide()
+                        if self.keyMap["receiver_right"]:
+                            receiver_h = self.test_receiver_3.get_h()
+                            receiver_coll_h = self.test_receiver_3_coll.get_h()
+                            increment_receiver = LerpHprInterval(self.test_receiver_3,0.01,(receiver_h-1,0,0)).start()
+                            increment_receiver_coll = LerpHprInterval(self.test_receiver_3_coll,0.01,(receiver_coll_h-1,0,0)).start()
 
-                    if self.keyMap["receiver_left"]:
-                        receiver_h = self.test_receiver_2.get_h()
-                        receiver_coll_h = self.test_receiver_2_coll.get_h()
-                        increment_receiver = LerpHprInterval(self.test_receiver_2,0.01,(receiver_h+1,0,0)).start()
-                        increment_receiver_coll = LerpHprInterval(self.test_receiver_2_coll,0.01,(receiver_coll_h+1,0,0)).start()
+                        if self.keyMap["receiver_left"]:
+                            receiver_h = self.test_receiver_3.get_h()
+                            receiver_coll_h = self.test_receiver_3_coll.get_h()
+                            increment_receiver = LerpHprInterval(self.test_receiver_3,0.01,(receiver_h+1,0,0)).start()
+                            increment_receiver_coll = LerpHprInterval(self.test_receiver_3_coll,0.01,(receiver_coll_h+1,0,0)).start()
 
-                    text_1.set_text('Receiver Rotation Value: ' + str(abs(round(self.test_receiver_2.get_h(), 1)))
-                                                                      + '\n' + 'Target: ' + str(self.level_init_h_vals[1]) + self.control_text)
+                        text_1.set_text('Receiver Rotation Value: ' + str(abs(round(self.test_receiver_3.get_h(), 1)))
+                                                                          + '\n' + 'Target: ' + str(self.level_init_h_vals[2]))
 
-                    end_game_result = detect_end_game(self.test_receiver_2_coll.node())
-                    if end_game_result > 0:
-                        # print(end_game_result)
-                        pass
-                    
-                if reference_z < -110 > -310:
-                    self.test_receiver_2.hide()
-                    if self.keyMap["receiver_right"]:
-                        receiver_h = self.test_receiver_3.get_h()
-                        receiver_coll_h = self.test_receiver_3_coll.get_h()
-                        increment_receiver = LerpHprInterval(self.test_receiver_3,0.01,(receiver_h-1,0,0)).start()
-                        increment_receiver_coll = LerpHprInterval(self.test_receiver_3_coll,0.01,(receiver_coll_h-1,0,0)).start()
+                        end_game_result = detect_end_game(self.test_receiver_3_coll.node())
+                        if end_game_result > 0:
+                            # print(end_game_result)
+                            pass
+                                                                          
+                    if reference_z < -310 > -510:
+                        self.test_receiver_3.hide()
+                        if self.keyMap["receiver_right"]:
+                            receiver_h = self.test_receiver_4.get_h()
+                            receiver_coll_h = self.test_receiver_4_coll.get_h()
+                            increment_receiver = LerpHprInterval(self.test_receiver_4,0.01,(receiver_h-1,0,0)).start()
+                            increment_receiver_coll = LerpHprInterval(self.test_receiver_4_coll,0.01,(receiver_coll_h-1,0,0)).start()
 
-                    if self.keyMap["receiver_left"]:
-                        receiver_h = self.test_receiver_3.get_h()
-                        receiver_coll_h = self.test_receiver_3_coll.get_h()
-                        increment_receiver = LerpHprInterval(self.test_receiver_3,0.01,(receiver_h+1,0,0)).start()
-                        increment_receiver_coll = LerpHprInterval(self.test_receiver_3_coll,0.01,(receiver_coll_h+1,0,0)).start()
+                        if self.keyMap["receiver_left"]:
+                            receiver_h = self.test_receiver_4.get_h()
+                            receiver_coll_h = self.test_receiver_4_coll.get_h()
+                            increment_receiver = LerpHprInterval(self.test_receiver_4,0.01,(receiver_h+1,0,0)).start()
+                            increment_receiver_coll = LerpHprInterval(self.test_receiver_4_coll,0.01,(receiver_coll_h+1,0,0)).start()
 
-                    text_1.set_text('Receiver Rotation Value: ' + str(abs(round(self.test_receiver_3.get_h(), 1)))
-                                                                      + '\n' + 'Target: ' + str(self.level_init_h_vals[2]))
+                        text_1.set_text('Receiver Rotation Value: ' + str(abs(round(self.test_receiver_4.get_h(), 1)))
+                                                                          + '\n' + 'Target: ' + str(self.level_init_h_vals[3]))
 
-                    end_game_result = detect_end_game(self.test_receiver_3_coll.node())
-                    if end_game_result > 0:
-                        # print(end_game_result)
-                        pass
-                                                                      
-                if reference_z < -310 > -510:
-                    self.test_receiver_3.hide()
-                    if self.keyMap["receiver_right"]:
-                        receiver_h = self.test_receiver_4.get_h()
-                        receiver_coll_h = self.test_receiver_4_coll.get_h()
-                        increment_receiver = LerpHprInterval(self.test_receiver_4,0.01,(receiver_h-1,0,0)).start()
-                        increment_receiver_coll = LerpHprInterval(self.test_receiver_4_coll,0.01,(receiver_coll_h-1,0,0)).start()
+                        end_game_result = detect_end_game(self.test_receiver_4_coll.node())
+                        if end_game_result > 0:
+                            # print(end_game_result)
+                            pass
+                                                                          
+                    if reference_z < -510 > -660:
+                        self.test_receiver_4.hide()
+                        if self.keyMap["receiver_right"]:
+                            receiver_h = self.test_receiver_5.get_h()
+                            receiver_coll_h = self.test_receiver_5_coll.get_h()
+                            increment_receiver = LerpHprInterval(self.test_receiver_5,0.01,(receiver_h-1,0,0)).start()
+                            increment_receiver_coll = LerpHprInterval(self.test_receiver_5_coll,0.01,(receiver_coll_h-1,0,0)).start()
 
-                    if self.keyMap["receiver_left"]:
-                        receiver_h = self.test_receiver_4.get_h()
-                        receiver_coll_h = self.test_receiver_4_coll.get_h()
-                        increment_receiver = LerpHprInterval(self.test_receiver_4,0.01,(receiver_h+1,0,0)).start()
-                        increment_receiver_coll = LerpHprInterval(self.test_receiver_4_coll,0.01,(receiver_coll_h+1,0,0)).start()
+                        if self.keyMap["receiver_left"]:
+                            receiver_h = self.test_receiver_5.get_h()
+                            receiver_coll_h = self.test_receiver_5_coll.get_h()
+                            increment_receiver = LerpHprInterval(self.test_receiver_5,0.01,(receiver_h+1,0,0)).start()
+                            increment_receiver_coll = LerpHprInterval(self.test_receiver_5_coll,0.01,(receiver_coll_h+1,0,0)).start()
 
-                    text_1.set_text('Receiver Rotation Value: ' + str(abs(round(self.test_receiver_4.get_h(), 1)))
-                                                                      + '\n' + 'Target: ' + str(self.level_init_h_vals[3]))
+                        text_1.set_text('Receiver Rotation Value: ' + str(abs(round(self.test_receiver_5.get_h(), 1)))
+                                                                          + '\n' + 'Target: ' + str(self.level_init_h_vals[4]))
 
-                    end_game_result = detect_end_game(self.test_receiver_4_coll.node())
-                    if end_game_result > 0:
-                        # print(end_game_result)
-                        pass
-                                                                      
-                if reference_z < -510 > -660:
-                    self.test_receiver_4.hide()
-                    if self.keyMap["receiver_right"]:
-                        receiver_h = self.test_receiver_5.get_h()
-                        receiver_coll_h = self.test_receiver_5_coll.get_h()
-                        increment_receiver = LerpHprInterval(self.test_receiver_5,0.01,(receiver_h-1,0,0)).start()
-                        increment_receiver_coll = LerpHprInterval(self.test_receiver_5_coll,0.01,(receiver_coll_h-1,0,0)).start()
+                        end_game_result = detect_end_game(self.test_receiver_5_coll.node())
+                        if end_game_result > 0:
+                            # print(end_game_result)
+                            pass
+                                                                          
+                    if reference_z < -660 > -810:
+                        self.test_receiver_5.hide()
+                        if self.keyMap["receiver_right"]:
+                            receiver_h = self.test_receiver_6.get_h()
+                            receiver_coll_h = self.test_receiver_6_coll.get_h()
+                            increment_receiver = LerpHprInterval(self.test_receiver_6,0.01,(receiver_h-1,0,0)).start()
+                            increment_receiver_coll = LerpHprInterval(self.test_receiver_6_coll,0.01,(receiver_coll_h-1,0,0)).start()
 
-                    if self.keyMap["receiver_left"]:
-                        receiver_h = self.test_receiver_5.get_h()
-                        receiver_coll_h = self.test_receiver_5_coll.get_h()
-                        increment_receiver = LerpHprInterval(self.test_receiver_5,0.01,(receiver_h+1,0,0)).start()
-                        increment_receiver_coll = LerpHprInterval(self.test_receiver_5_coll,0.01,(receiver_coll_h+1,0,0)).start()
+                        if self.keyMap["receiver_left"]:
+                            receiver_h = self.test_receiver_6.get_h()
+                            receiver_coll_h = self.test_receiver_6_coll.get_h()
+                            increment_receiver = LerpHprInterval(self.test_receiver_6,0.01,(receiver_h+1,0,0)).start()
+                            increment_receiver_coll = LerpHprInterval(self.test_receiver_6_coll,0.01,(receiver_coll_h+1,0,0)).start()
 
-                    text_1.set_text('Receiver Rotation Value: ' + str(abs(round(self.test_receiver_5.get_h(), 1)))
-                                                                      + '\n' + 'Target: ' + str(self.level_init_h_vals[4]))
+                        text_1.set_text('Receiver Rotation Value: ' + str(abs(round(self.test_receiver_6_coll.get_h(), 1)))
+                                                                          + '\n' + 'Target: ' + str(self.level_init_h_vals[5]))
 
-                    end_game_result = detect_end_game(self.test_receiver_5_coll.node())
-                    if end_game_result > 0:
-                        # print(end_game_result)
-                        pass
-                                                                      
-                if reference_z < -660 > -810:
-                    self.test_receiver_5.hide()
-                    if self.keyMap["receiver_right"]:
-                        receiver_h = self.test_receiver_6.get_h()
-                        receiver_coll_h = self.test_receiver_6_coll.get_h()
-                        increment_receiver = LerpHprInterval(self.test_receiver_6,0.01,(receiver_h-1,0,0)).start()
-                        increment_receiver_coll = LerpHprInterval(self.test_receiver_6_coll,0.01,(receiver_coll_h-1,0,0)).start()
+                        end_game_result = detect_end_game(self.test_receiver_6_coll.node())
+                        if end_game_result > 0:
+                            # print(end_game_result)
+                            pass
+                            
+                    if reference_z < -810 > -1010:
+                        self.test_receiver_6.hide()
+                        if self.keyMap["receiver_right"]:
+                            receiver_h = self.test_receiver_7.get_h()
+                            receiver_coll_h = self.test_receiver_7_coll.get_h()
+                            increment_receiver = LerpHprInterval(self.test_receiver_7,0.01,(receiver_h-1,0,0)).start()
+                            increment_receiver_coll = LerpHprInterval(self.test_receiver_7_coll,0.01,(receiver_coll_h-1,0,0)).start()
 
-                    if self.keyMap["receiver_left"]:
-                        receiver_h = self.test_receiver_6.get_h()
-                        receiver_coll_h = self.test_receiver_6_coll.get_h()
-                        increment_receiver = LerpHprInterval(self.test_receiver_6,0.01,(receiver_h+1,0,0)).start()
-                        increment_receiver_coll = LerpHprInterval(self.test_receiver_6_coll,0.01,(receiver_coll_h+1,0,0)).start()
+                        if self.keyMap["receiver_left"]:
+                            receiver_h = self.test_receiver_7.get_h()
+                            receiver_coll_h = self.test_receiver_7_coll.get_h()
+                            increment_receiver = LerpHprInterval(self.test_receiver_7,0.01,(receiver_h+1,0,0)).start()
+                            increment_receiver_coll = LerpHprInterval(self.test_receiver_7_coll,0.01,(receiver_coll_h+1,0,0)).start()
 
-                    text_1.set_text('Receiver Rotation Value: ' + str(abs(round(self.test_receiver_6_coll.get_h(), 1)))
-                                                                      + '\n' + 'Target: ' + str(self.level_init_h_vals[5]))
+                        text_1.set_text('Receiver Rotation Value: ' + str(abs(round(self.test_receiver_7_coll.get_h(), 1)))
+                                                                          + '\n' + 'Target: ' + str(self.level_init_h_vals[6]))
 
-                    end_game_result = detect_end_game(self.test_receiver_6_coll.node())
-                    if end_game_result > 0:
-                        # print(end_game_result)
-                        pass
+                        end_game_result = detect_end_game(self.test_receiver_7_coll.node())
+                        if end_game_result > 0:
+                            # print(end_game_result)
+                            pass
+                            
+                    if reference_z < -1010 > -1310:
+                        self.test_receiver_7.hide()
+                        if self.keyMap["receiver_right"]:
+                            receiver_h = self.test_receiver_8.get_h()
+                            receiver_coll_h = self.test_receiver_8_coll.get_h()
+                            increment_receiver = LerpHprInterval(self.test_receiver_8,0.01,(receiver_h-1,0,0)).start()
+                            increment_receiver_coll = LerpHprInterval(self.test_receiver_8_coll,0.01,(receiver_coll_h-1,0,0)).start()
+
+                        if self.keyMap["receiver_left"]:
+                            receiver_h = self.test_receiver_8.get_h()
+                            receiver_coll_h = self.test_receiver_8_coll.get_h()
+                            increment_receiver = LerpHprInterval(self.test_receiver_8,0.01,(receiver_h+1,0,0)).start()
+                            increment_receiver_coll = LerpHprInterval(self.test_receiver_8_coll,0.01,(receiver_coll_h+1,0,0)).start()
+
+                        text_1.set_text('Receiver Rotation Value: ' + str(abs(round(self.test_receiver_8_coll.get_h(), 1)))
+                                                                          + '\n' + 'Target: ' + str(self.level_init_h_vals[7]))
+
+                        end_game_result = detect_end_game(self.test_receiver_8_coll.node())
+                        if end_game_result > 0:
+                            # print(end_game_result)
+                            pass
+                            
+                    if reference_z < -1310 > -1610:
+                        self.test_receiver_8.hide()
+                        if self.keyMap["receiver_right"]:
+                            receiver_h = self.test_receiver_9.get_h()
+                            receiver_coll_h = self.test_receiver_9_coll.get_h()
+                            increment_receiver = LerpHprInterval(self.test_receiver_9,0.01,(receiver_h-1,0,0)).start()
+                            increment_receiver_coll = LerpHprInterval(self.test_receiver_9_coll,0.01,(receiver_coll_h-1,0,0)).start()
+
+                        if self.keyMap["receiver_left"]:
+                            receiver_h = self.test_receiver_9.get_h()
+                            receiver_coll_h = self.test_receiver_9_coll.get_h()
+                            increment_receiver = LerpHprInterval(self.test_receiver_9,0.01,(receiver_h+1,0,0)).start()
+                            increment_receiver_coll = LerpHprInterval(self.test_receiver_9_coll,0.01,(receiver_coll_h+1,0,0)).start()
+
+                        text_1.set_text('Receiver Rotation Value: ' + str(abs(round(self.test_receiver_9_coll.get_h(), 1)))
+                                                                          + '\n' + 'Target: ' + str(self.level_init_h_vals[8]))
+
+                        end_game_result = detect_end_game(self.test_receiver_9_coll.node())
+                        if end_game_result > 0:
+                            # print(end_game_result)
+                            pass
                         
-                if reference_z < -810 > -1010:
-                    self.test_receiver_6.hide()
-                    if self.keyMap["receiver_right"]:
-                        receiver_h = self.test_receiver_7.get_h()
-                        receiver_coll_h = self.test_receiver_7_coll.get_h()
-                        increment_receiver = LerpHprInterval(self.test_receiver_7,0.01,(receiver_h-1,0,0)).start()
-                        increment_receiver_coll = LerpHprInterval(self.test_receiver_7_coll,0.01,(receiver_coll_h-1,0,0)).start()
-
-                    if self.keyMap["receiver_left"]:
-                        receiver_h = self.test_receiver_7.get_h()
-                        receiver_coll_h = self.test_receiver_7_coll.get_h()
-                        increment_receiver = LerpHprInterval(self.test_receiver_7,0.01,(receiver_h+1,0,0)).start()
-                        increment_receiver_coll = LerpHprInterval(self.test_receiver_7_coll,0.01,(receiver_coll_h+1,0,0)).start()
-
-                    text_1.set_text('Receiver Rotation Value: ' + str(abs(round(self.test_receiver_7_coll.get_h(), 1)))
-                                                                      + '\n' + 'Target: ' + str(self.level_init_h_vals[6]))
-
-                    end_game_result = detect_end_game(self.test_receiver_7_coll.node())
-                    if end_game_result > 0:
-                        # print(end_game_result)
-                        pass
-                        
-                if reference_z < -1010 > -1310:
-                    self.test_receiver_7.hide()
-                    if self.keyMap["receiver_right"]:
-                        receiver_h = self.test_receiver_8.get_h()
-                        receiver_coll_h = self.test_receiver_8_coll.get_h()
-                        increment_receiver = LerpHprInterval(self.test_receiver_8,0.01,(receiver_h-1,0,0)).start()
-                        increment_receiver_coll = LerpHprInterval(self.test_receiver_8_coll,0.01,(receiver_coll_h-1,0,0)).start()
-
-                    if self.keyMap["receiver_left"]:
-                        receiver_h = self.test_receiver_8.get_h()
-                        receiver_coll_h = self.test_receiver_8_coll.get_h()
-                        increment_receiver = LerpHprInterval(self.test_receiver_8,0.01,(receiver_h+1,0,0)).start()
-                        increment_receiver_coll = LerpHprInterval(self.test_receiver_8_coll,0.01,(receiver_coll_h+1,0,0)).start()
-
-                    text_1.set_text('Receiver Rotation Value: ' + str(abs(round(self.test_receiver_8_coll.get_h(), 1)))
-                                                                      + '\n' + 'Target: ' + str(self.level_init_h_vals[7]))
-
-                    end_game_result = detect_end_game(self.test_receiver_8_coll.node())
-                    if end_game_result > 0:
-                        # print(end_game_result)
-                        pass
-                        
-                if reference_z < -1310 > -1610:
-                    self.test_receiver_8.hide()
-                    if self.keyMap["receiver_right"]:
-                        receiver_h = self.test_receiver_9.get_h()
-                        receiver_coll_h = self.test_receiver_9_coll.get_h()
-                        increment_receiver = LerpHprInterval(self.test_receiver_9,0.01,(receiver_h-1,0,0)).start()
-                        increment_receiver_coll = LerpHprInterval(self.test_receiver_9_coll,0.01,(receiver_coll_h-1,0,0)).start()
-
-                    if self.keyMap["receiver_left"]:
-                        receiver_h = self.test_receiver_9.get_h()
-                        receiver_coll_h = self.test_receiver_9_coll.get_h()
-                        increment_receiver = LerpHprInterval(self.test_receiver_9,0.01,(receiver_h+1,0,0)).start()
-                        increment_receiver_coll = LerpHprInterval(self.test_receiver_9_coll,0.01,(receiver_coll_h+1,0,0)).start()
-
-                    text_1.set_text('Receiver Rotation Value: ' + str(abs(round(self.test_receiver_9_coll.get_h(), 1)))
-                                                                      + '\n' + 'Target: ' + str(self.level_init_h_vals[8]))
-
-                    end_game_result = detect_end_game(self.test_receiver_9_coll.node())
-                    if end_game_result > 0:
-                        # print(end_game_result)
-                        pass
-                        
-                if reference_z < -1610:
-                    self.high_score += 1000
-                    text_1.set_text("Congrats, you won T U B E F A L L E R !\nPress 'p' to restart." + "\nCurrent Score: " + (self.high_score))
+                # if reference_z < -1610:
+                #     # self.high_score += 1000
+                #     text_1.set_text("Congrats, you won T U B E F A L L E R !\nPress 'p' to restart." + "\nCurrent Score: " + str((self.high_score)))
 
                 return Task.again
 
@@ -781,6 +786,23 @@ class app(ShowBase):
             self.rc_z_1 = 0
             self.rc_z_2 = 0
             self.rc_speed = 0
+            
+            def check_high_score(Task):
+                Task.delay_time = 1
+                
+                reference_z = self.render.find_all_matches('**/random_prisms*')[0].get_z()
+                
+                if reference_z < -1610:
+                    if not self.reset_level:
+                        self.reset_level = True
+                        self.high_score += 1000
+                        text_1.set_text("T U B E F A L L E R level cleared!\nStarting next level..." + "\nCurrent Score: " + str((self.high_score)))
+                        self.world_initial_gravity -= 0.05
+                        self.world.set_gravity(Vec3(0, 0, self.world_initial_gravity))
+                        # text_1.set_text('Recovering level...')
+                        cleanup_level()
+                        
+                return Task.again
 
             def measure_fall_speed(Task):
                 Task.delay_time = 1
@@ -846,6 +868,7 @@ class app(ShowBase):
             self.task_mgr.add(rotate_receiver)
             self.task_mgr.add(update_receiver_cam)
             self.task_mgr.add(measure_fall_speed)
+            self.task_mgr.add(check_high_score)
 
         # intro_sequence()
         
