@@ -1474,7 +1474,7 @@ class app(ShowBase):
             
             return Task.cont
 
-        music_path = 'music/space_tech_pyweek37.mp3'
+        music_path = 'music/space_tech_pyweek37.ogg'
         self.music = self.loader.load_music(music_path)
         self.music.set_loop(True)
         self.music_time = self.music.get_time()
