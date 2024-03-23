@@ -592,7 +592,8 @@ class app(ShowBase):
                             increment_receiver_coll = LerpHprInterval(self.test_receiver_1_coll,0.01,(receiver_coll_h+1,0,0)).start()
 
                         text_1.set_text('Receiver Rotation Value: ' + str(abs(round(self.test_receiver_1.get_h(), 1)))
-                                                                          + '\n' + 'Target: ' + str(self.level_init_h_vals[0]) + self.control_text)
+                                                                          + '\n' + 'Target: ' + str(self.level_init_h_vals[0]) + self.control_text +
+                                                                           "\nCurrent Score: " + str(self.high_score) + "\nCurrent Gravity: " + str(self.world_initial_gravity))
 
                         end_game_result = detect_end_game(self.test_receiver_1_coll.node())
                         if end_game_result > 0:
@@ -614,7 +615,8 @@ class app(ShowBase):
                             increment_receiver_coll = LerpHprInterval(self.test_receiver_2_coll,0.01,(receiver_coll_h+1,0,0)).start()
 
                         text_1.set_text('Receiver Rotation Value: ' + str(abs(round(self.test_receiver_2.get_h(), 1)))
-                                                                          + '\n' + 'Target: ' + str(self.level_init_h_vals[1]) + self.control_text)
+                                                                          + '\n' + 'Target: ' + str(self.level_init_h_vals[1]) + self.control_text +
+                                                                           "\nCurrent Score: " + str(self.high_score) + "\nCurrent Gravity: " + str(self.world_initial_gravity))
 
                         end_game_result = detect_end_game(self.test_receiver_2_coll.node())
                         if end_game_result > 0:
@@ -636,7 +638,8 @@ class app(ShowBase):
                             increment_receiver_coll = LerpHprInterval(self.test_receiver_3_coll,0.01,(receiver_coll_h+1,0,0)).start()
 
                         text_1.set_text('Receiver Rotation Value: ' + str(abs(round(self.test_receiver_3.get_h(), 1)))
-                                                                          + '\n' + 'Target: ' + str(self.level_init_h_vals[2]))
+                                                                          + '\n' + 'Target: ' + str(self.level_init_h_vals[2]) +
+                                                                           "\nCurrent Score: " + str(self.high_score) + "\nCurrent Gravity: " + str(self.world_initial_gravity))
 
                         end_game_result = detect_end_game(self.test_receiver_3_coll.node())
                         if end_game_result > 0:
@@ -658,7 +661,8 @@ class app(ShowBase):
                             increment_receiver_coll = LerpHprInterval(self.test_receiver_4_coll,0.01,(receiver_coll_h+1,0,0)).start()
 
                         text_1.set_text('Receiver Rotation Value: ' + str(abs(round(self.test_receiver_4.get_h(), 1)))
-                                                                          + '\n' + 'Target: ' + str(self.level_init_h_vals[3]))
+                                                                          + '\n' + 'Target: ' + str(self.level_init_h_vals[3]) +
+                                                                           "\nCurrent Score: " + str(self.high_score) + "\nCurrent Gravity: " + str(self.world_initial_gravity))
 
                         end_game_result = detect_end_game(self.test_receiver_4_coll.node())
                         if end_game_result > 0:
@@ -680,7 +684,8 @@ class app(ShowBase):
                             increment_receiver_coll = LerpHprInterval(self.test_receiver_5_coll,0.01,(receiver_coll_h+1,0,0)).start()
 
                         text_1.set_text('Receiver Rotation Value: ' + str(abs(round(self.test_receiver_5.get_h(), 1)))
-                                                                          + '\n' + 'Target: ' + str(self.level_init_h_vals[4]))
+                                                                          + '\n' + 'Target: ' + str(self.level_init_h_vals[4]) +
+                                                                           "\nCurrent Score: " + str(self.high_score) + "\nCurrent Gravity: " + str(self.world_initial_gravity))
 
                         end_game_result = detect_end_game(self.test_receiver_5_coll.node())
                         if end_game_result > 0:
@@ -702,7 +707,8 @@ class app(ShowBase):
                             increment_receiver_coll = LerpHprInterval(self.test_receiver_6_coll,0.01,(receiver_coll_h+1,0,0)).start()
 
                         text_1.set_text('Receiver Rotation Value: ' + str(abs(round(self.test_receiver_6_coll.get_h(), 1)))
-                                                                          + '\n' + 'Target: ' + str(self.level_init_h_vals[5]))
+                                                                          + '\n' + 'Target: ' + str(self.level_init_h_vals[5]) +
+                                                                           "\nCurrent Score: " + str(self.high_score) + "\nCurrent Gravity: " + str(self.world_initial_gravity))
 
                         end_game_result = detect_end_game(self.test_receiver_6_coll.node())
                         if end_game_result > 0:
@@ -724,7 +730,8 @@ class app(ShowBase):
                             increment_receiver_coll = LerpHprInterval(self.test_receiver_7_coll,0.01,(receiver_coll_h+1,0,0)).start()
 
                         text_1.set_text('Receiver Rotation Value: ' + str(abs(round(self.test_receiver_7_coll.get_h(), 1)))
-                                                                          + '\n' + 'Target: ' + str(self.level_init_h_vals[6]))
+                                                                          + '\n' + 'Target: ' + str(self.level_init_h_vals[6]) +
+                                                                           "\nCurrent Score: " + str(self.high_score) + "\nCurrent Gravity: " + str(self.world_initial_gravity))
 
                         end_game_result = detect_end_game(self.test_receiver_7_coll.node())
                         if end_game_result > 0:
@@ -746,7 +753,8 @@ class app(ShowBase):
                             increment_receiver_coll = LerpHprInterval(self.test_receiver_8_coll,0.01,(receiver_coll_h+1,0,0)).start()
 
                         text_1.set_text('Receiver Rotation Value: ' + str(abs(round(self.test_receiver_8_coll.get_h(), 1)))
-                                                                          + '\n' + 'Target: ' + str(self.level_init_h_vals[7]))
+                                                                          + '\n' + 'Target: ' + str(self.level_init_h_vals[7]) +
+                                                                           "\nCurrent Score: " + str(self.high_score) + "\nCurrent Gravity: " + str(self.world_initial_gravity))
 
                         end_game_result = detect_end_game(self.test_receiver_8_coll.node())
                         if end_game_result > 0:
@@ -768,7 +776,8 @@ class app(ShowBase):
                             increment_receiver_coll = LerpHprInterval(self.test_receiver_9_coll,0.01,(receiver_coll_h+1,0,0)).start()
 
                         text_1.set_text('Receiver Rotation Value: ' + str(abs(round(self.test_receiver_9_coll.get_h(), 1)))
-                                                                          + '\n' + 'Target: ' + str(self.level_init_h_vals[8]))
+                                                                          + '\n' + 'Target: ' + str(self.level_init_h_vals[8]) +
+                                                                           "\nCurrent Score: " + str(self.high_score) + "\nCurrent Gravity: " + str(self.world_initial_gravity))
 
                         end_game_result = detect_end_game(self.test_receiver_9_coll.node())
                         if end_game_result > 0:
@@ -788,7 +797,7 @@ class app(ShowBase):
             self.rc_speed = 0
             
             def check_high_score(Task):
-                Task.delay_time = 1
+                Task.delay_time = 2
                 
                 reference_z = self.render.find_all_matches('**/random_prisms*')[0].get_z()
                 
